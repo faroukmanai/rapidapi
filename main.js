@@ -8,7 +8,10 @@ fetch('https://imdb-com.p.rapidapi.com/auto-complete?q=game', {
 .then(response => response.json())
 .then(responseData => {
     const list = responseData.data.d;
-    list.map((item) => {
+    list.map((item, index) => {
+        // Skip the first item (index 0)
+        if (index === 0) return;
+
         if (item.l && item.i && item.i.imageUrl) {
             const name = item.l;
             const poster = item.i.imageUrl;
@@ -23,7 +26,6 @@ fetch('https://imdb-com.p.rapidapi.com/auto-complete?q=game', {
             document.querySelector(".movies").innerHTML += movie;
         }
         const card = document.querySelectorAll(".card");
-
 
         card.forEach(el => {
             el.addEventListener("mousemove", e => {
@@ -50,5 +52,3 @@ fetch('https://imdb-com.p.rapidapi.com/auto-complete?q=game', {
 .catch(err => {
     console.error(err);
 });
-
-
